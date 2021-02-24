@@ -95,25 +95,28 @@
       <button class="header__close" @click="handleModalDetailClose()">
         <img src="../assets/svg-icons/error.svg" alt="Close icon" />
       </button>
-      <span class="modal__title" >Detail Produk</span>
-      <div class="modal__content">
-        <div class="product__img__detail">
-          <img :src="detailProduct.foto_url" alt="" />
+      <span class="modal__title" style="margin-bottom:20px;">Detail Produk</span>
+      <div class="modal__content row">
+        <div class="col-lg-6">
+          <div class="product__img__detail">
+            <img :src="detailProduct.foto_url" alt="" />
+          </div>
         </div>
-        <h3 class="product__title">{{ detailProduct.nama }} - Merk : {{ detailProduct.merk }}</h3>
-        <div class="discount-erwin">
-          <div data-testid="lblProductDiscount#1">{{ detailProduct.diskon }} %</div>
-          <div>{{ detailProduct.harga | currency }}</div>
+        <div class="col-lg-6">
+          <h3 class="product__title">{{ detailProduct.nama }} - Merk : {{ detailProduct.merk }}</h3>
+          <div class="discount-erwin">
+            <div data-testid="lblProductDiscount#1">{{ detailProduct.diskon }} %</div>
+            <div>{{ detailProduct.harga | currency }}</div>
+          </div>
+          <!-- <div class="deskripsi"> -->
+            <span class="product__price">{{ (((100 - detailProduct.diskon) / 100) * detailProduct.harga) | currency }}</span>
+          <!-- </div> -->
+          <div class="product__title" style="margin-top:20px;">
+            <b>Deskripsi :</b>
+            <p class="product__desc" v-html="detailProduct.deskripsi">{{ detailProduct.deskripsi }}</p>
+          </div>
         </div>
-        <!-- <div class="deskripsi"> -->
-          <span class="product__price">{{ (((100 - detailProduct.diskon) / 100) * detailProduct.harga) | currency }}</span>
-        <!-- </div> -->
-
-        <div class="product__title" style="margin-top:20px;">
-          <b>Deskripsi :</b>
-          <p class="product__desc" v-html="detailProduct.deskripsi">{{ detailProduct.deskripsi }}</p>
-        </div>
-        <div class="modal__action" @click.prevent="tambahKeranjang()">
+        <div class="modal__action col-md-12" @click.prevent="tambahKeranjang()">
           <button class="form__btn" type="button">
             Tambahkan ke Keranjang
           </button>
