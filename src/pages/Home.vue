@@ -30,11 +30,10 @@
       <transition-group name="fadex" class="row row--grid" tag="div">
         <div
           v-for="item in filteredProducts"
-          class="col-12 col-sm-6 col-lg-4 erwin-pointer"
-          :key="item.id"
+          class="col-12 col-sm-6 col-lg-4 erwin-pointer" :key="item.id"
         >
-          <div class="product" @click="detailItem(item)">
-            <div class="product__img">
+          <div class="product">
+            <div class="product__img" @click="detailItem(item)">
               <img :src="item.foto_url" alt="" />
             </div>
             <h3 class="product__title">{{ item.nama }}</h3>
@@ -45,9 +44,7 @@
             <div>
               <span class="product__price">{{ (((100 - item.diskon) / 100) * item.harga) | currency }}</span>
             </div>
-          </div>
-          <button @click="addToCart(item)" class="product__add" type="button">
-          <!-- <button class="product__add" type="button"> -->
+            <button @click="addToCart(item)" class="product__add" type="button">
               <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
                 <path
                   d="M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z"
@@ -83,6 +80,7 @@
                 />
               </svg>
             </button>
+          </div>
         </div>
       </transition-group>
     </div>
@@ -95,28 +93,22 @@
       <button class="header__close" @click="handleModalDetailClose()">
         <img src="../assets/svg-icons/error.svg" alt="Close icon" />
       </button>
-      <span class="modal__title" style="margin-bottom:20px;">Detail Produk</span>
-      <div class="modal__content row">
-        <div class="col-lg-6">
-          <div class="product__img__detail">
-            <img :src="detailProduct.foto_url" alt="" />
-          </div>
+      <span class="modal__title">Detail Produk</span>
+      <div class="modal__content">
+        <div class="product__img__detail">
+          <img :src="detailProduct.foto_url" alt="" />
         </div>
-        <div class="col-lg-6">
-          <h3 class="product__title">{{ detailProduct.nama }} - Merk : {{ detailProduct.merk }}</h3>
-          <div class="discount-erwin">
-            <div data-testid="lblProductDiscount#1">{{ detailProduct.diskon }} %</div>
-            <div>{{ detailProduct.harga | currency }}</div>
-          </div>
-          <!-- <div class="deskripsi"> -->
-            <span class="product__price">{{ (((100 - detailProduct.diskon) / 100) * detailProduct.harga) | currency }}</span>
-          <!-- </div> -->
-          <div class="product__title" style="margin-top:20px;">
-            <b>Deskripsi :</b>
-            <p class="product__desc" v-html="detailProduct.deskripsi">{{ detailProduct.deskripsi }}</p>
-          </div>
+        <h3 class="product__title">{{ detailProduct.nama }}</h3>
+        <div class="discount-erwin">
+          <div data-testid="lblProductDiscount#1">{{ detailProduct.diskon }} %</div>
+          <div>{{ detailProduct.harga | currency }}</div>
         </div>
-        <div class="modal__action col-md-12" @click.prevent="tambahKeranjang()">
+        <div class="deskripsi">
+          <span class="product__price">{{ (((100 - detailProduct.diskon) / 100) * detailProduct.harga) | currency }}</span>
+        </div>
+         <p class="product__desc" v-html="detailProduct.deskripsi">{{ detailProduct.deskripsi }}</p>
+
+        <div class="modal__action" @click.prevent="tambahKeranjang()">
           <button class="form__btn" type="button">
             Tambahkan ke Keranjang
           </button>
@@ -268,18 +260,15 @@ input:required {
   position: relative;
   display: flex;
   flex-direction: column;
-  max-height: 100%;
+  height: 95%;
   width: 90%;
   margin: 0 1rem;
   padding: 1rem;
-  overflow: auto;
   border-radius: 0.25rem;
   background: #f0f0f0;
   webkit-box-shadow: 15px 15px 30px 0px rgb(0 0 0 / 7%), -15px -15px 30px 0px rgb(255 255 255 / 80%);
   box-shadow: 15px 15px 30px 0px rgb(0 0 0 / 7%), -15px -15px 30px 0px rgb(255 255 255 / 80%);
 }
-
-
 ::v-deep .modal__title {
   margin: 0 2rem 0 0;
   font-size: 2rem;

@@ -6,13 +6,12 @@
           <div class="header__content">
             <div class="header__logo">
               <router-link to="/" class="logo md-layout-item">
-                <!-- <img src="../assets/logotemanpasar.png" alt="temanpasar" class="logo__img" /> -->
-                <h1>AYEN</h1>
+                <img src="../assets/logotemanpasar.png" alt="temanpasar" class="logo__img" />
               </router-link>
             </div>
 
             <span class="header__tagline"
-              ><b>{{ siteName }}</b> by Toko Ayen <br />{{ siteDescription }}</span
+              ><b>{{ siteName }}</b> – {{ siteName }} <br />{{ siteDescription }}</span
             >
           </div>
         </div>
@@ -324,8 +323,8 @@ export default {
   data: () => ({
     needToShowQuickCart: false,
     isLoading: false,
-    siteName: 'Honey Baby',
-    siteDescription: 'Menyediakan Kebutuhan Bayi',
+    siteName: 'Ayen',
+    siteDescription: 'Ayen',
     showMobileQuickCart: false,
     menuVisible: false,
     isModalDaftarVisible: false,
@@ -398,7 +397,7 @@ export default {
     // QuickCard,
   },
   methods: {
-    ...mapActions(['updateAuth', 'updateProductFromMenu']),
+    ...mapActions(['updateAuth', 'updateProductFromMenu', 'createOrderCode']),
     logOut() {
       const path = '/';
 
@@ -541,7 +540,9 @@ export default {
         })
         .then((response) => {
           localStorage.setItem('contextToken', response.data.data.token);
+          localStorage.setItem('order_code', response.data.data.order_code);
           localStorage.setItem('isUserAuthorized', true);
+          this.createOrderCode(response.data.data.order_code);
           // this.replaceOrder();
           this.isLoading = false;
           this.isUserAuthorized = true;
